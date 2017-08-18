@@ -2,6 +2,7 @@
  * GET home page
  */
 
+var FlightSchema = require('../../Schemas/flight');
 var flights = require('../data');
 var flight = require('../flight');
 
@@ -26,6 +27,20 @@ exports.arrived = function (req, res) {
 	}
 	else {
 		flights[number].triggerArrive();
+		
+		var record = new FlightSchema(flights[number].getInformaiton());
+		record.save(function (err) {
+			if (err) {
+				console.log(err);
+				res.status(500).json({status: 'failure'});
+			}
+			else {
+				res.json({status: 'success'});
+			}
+		});
+		
+		
+		
 		res.json({status: 'done'});
 	}
 };
