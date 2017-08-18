@@ -30,8 +30,4 @@ var Flight = function () {
 	
 };
 
-module.exports = function (info) {
-	var instance = new Flight();
-	instance.fill(info);
-	return instance;
-};
+module.exports = Flight;
