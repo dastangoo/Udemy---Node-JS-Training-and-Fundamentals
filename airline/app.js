@@ -10,7 +10,10 @@ var users = require('./routes/users');
 
 var app = express();
 
-module.exports = function (flights) {
+var MongoStore = require('connect-mongo')(express);
+ 
+
+module.exports = function (flights, db) {
 		// view engine setup
 	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'jade');
@@ -21,6 +24,13 @@ module.exports = function (flights) {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
+	app.use(express, cookieParser());
+	app.use(express, session({
+		secret: 'random secret key',
+		store: new MongoStore({
+			mongoose_connection: db
+		})
+	}));
 	app.use(express.static(path.join(__dirname, 'public')));
 	app.use(function (req, res, next) {
 		res.set('X-Powered-By', 'Flight Tracker');

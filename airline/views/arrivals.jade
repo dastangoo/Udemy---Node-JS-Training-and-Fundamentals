@@ -2,6 +2,7 @@ extends layout
 
 block content
 	h1= title
+	p= 'Last Flight Viewed: ' + lastNumber
 	ul
 		each flight, index in flights
 			- landed = new Date(flight.actualArrive)
