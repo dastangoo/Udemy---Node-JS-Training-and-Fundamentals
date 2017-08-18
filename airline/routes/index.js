@@ -18,3 +18,15 @@ exports.flight = function (req, res) {
 		res.json(flights[number].getInformaiton());
 	}
 };
+
+exports.arrived = function (req, res) {
+	var number = req.param('number');
+	if (typeof flights[number] === undefined) {
+		req.status(404).json({status: 'error'});
+	}
+	else {
+		flights[number].triggerArrive();
+		res.json({status: 'done'});
+	}
+};
+

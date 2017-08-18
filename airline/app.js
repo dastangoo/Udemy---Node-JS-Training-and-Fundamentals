@@ -46,3 +46,4 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 app.get('/flight/:number', routes.flight);
+app.put('/flight/:number/arrived', routes.arrived);
