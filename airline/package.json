@@ -1,4 +1,4 @@
- {
+{
   "name": "airline",
   "version": "0.0.0",
   "private": true,
@@ -13,5 +13,10 @@
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   }
 }
