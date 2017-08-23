@@ -3,6 +3,7 @@
  */
 
 var FlightSchema = require('../../Schemas/flight');
+
 var flights = require('../data');
 var flight = require('../flight');
 
