@@ -4,6 +4,10 @@
 
 var FlightSchema = require('../../Schemas/flight');
 
+
+var Emitter = require('event').EventEmitter;
+var flightEmitter = new Emitter();
+
 var flights = require('../data');
 var flight = require('../flight');
 
@@ -28,6 +32,12 @@ exports.arrived = function (req, res) {
 	}
 	else {
 		flights[number].triggerArrive();
+		
+		flightEmitter.emit('arrival', flights[number]);
+		res.json = new FlightSchema(
+			flights[number].getInformaiton();
+		);
+		
 		
 		var record = new FlightSchema(flights[number].getInformaiton());
 		record.save(function (err) {
