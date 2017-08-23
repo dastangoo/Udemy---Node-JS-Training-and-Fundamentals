@@ -11,6 +11,7 @@ var users = require('./routes/users');
 var app = express();
 
 var MongoStore = require('connect-mongo')(express);
+var passport = require('./auth');
  
 
 module.exports = function (flights, db) {
@@ -21,6 +22,8 @@ module.exports = function (flights, db) {
 	// uncomment after placing your favicon in /public
 	//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 	app.use(logger('dev'));
+	app.use(passport.initialize());
+	app.use(passport.session());
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(cookieParser());
@@ -64,6 +67,12 @@ module.exports = function (flights, db) {
 	app.get('/list', routes.list);
 	
 	app.get('/arrivals', routes.arrivals);
+	app.get('/login', routes.login);
+	app.post('/login', passport.authenticate('local', {
+		failureRedirect: '/login',
+		successRedirect: '/user'
+	}));
+	app.get('/user', routes.user);
 	
 	return app;
 };
